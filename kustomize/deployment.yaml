@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle-search
+  labels:
+    app: oracle-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oracle-search
+  template:
+    metadata:
+      labels:
+        app: oracle-search
+    spec:
+      containers:
+        - name: oracle-search
+          image: ghcr.io/jlilienfeld/oracle-search:0.0.1
+          imagePullPolicy: Always
+          env:
+          - name: JAVA_OPTS
+            value: -Dspring.config.location=file:/config/application.yml
+          volumeMounts:
+          - mountPath: /config
+            name: oracle-search-config
+            readOnly: true
+          - mountPath: /cert
+            name: web-crt
+            readOnly: true
+      volumes:
+      - name: oracle-search-config
+        secret:
+          secretName: oracle-search-config
+      - name: web-crt
+        secret:
+          secretName: web-crt
