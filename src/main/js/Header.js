@@ -5,12 +5,6 @@ export class Header extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.onSearchTextChanged = this.onSearchTextChanged.bind(this);
-    }
-
-    onSearchTextChanged(event) {
-        this.props.onSearchTextChanged(event.target.value);
     }
 
     render() {
@@ -21,9 +15,7 @@ export class Header extends React.Component {
 
                         {/* Header: Left side */}
                         <div className="flex items-center w-full">
-                            <label className="block text-sm font-medium mb-1">Search for content:</label>
-                            <input onChange={this.onSearchTextChanged}
-                                   className="form-input bg-slate-400 w-full" type="text"/>
+                            Place Holder 1
                         </div>
 
                         {/* Header: Right side */}

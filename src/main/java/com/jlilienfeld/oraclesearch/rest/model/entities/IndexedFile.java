@@ -1,5 +1,6 @@
 package com.jlilienfeld.oraclesearch.rest.model.entities;
 
+import com.jlilienfeld.oraclesearch.rest.model.FileData;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -16,4 +17,6 @@ public class IndexedFile {
     @Field
     private String content;
 
+    @Field
+    private FileData file;
 }
