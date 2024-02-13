@@ -22,3 +22,5 @@ TODO:
 * Create a Kustomize manifests to deploy this application without Helm.
 
 
+# Credits
+[Images by rawpixel.com](https://www.freepik.com/free-vector/illustration-folder-icon_2606506.htm#query=file%20logo&position=8&from_view=keyword&track=ais&uuid=c6506417-c091-447c-8422-1117af6a00cd) on Freepik
