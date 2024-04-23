@@ -42,6 +42,8 @@ User -> CloudFlare -> pfSense -> Traefik's metallb IP -> Traefik's reverse proxy
 pfSense only allows traffic from [CloudFlare's CIDRs](https://www.cloudflare.com/ips/)
 This setup allows hiding the system's public IPs to the public.  It is not possible to access the system via other means than CloudFlare.
 
+Authentication is all done with Auth0 and OpenID/Connect.  Spring Boot security is used in the backend to integrate with Auth0.
+
 "Oracle Search" application is reponsible for:
 * Authenticating users and their requests.
   * Currently this is done via Auth0.
@@ -67,3 +69,29 @@ This setup allows hiding the system's public IPs to the public.  It is not possi
 "[FSCrawler](https://fscrawler.readthedocs.io/)" is responsible for:
 * Exposing a REST server which accepts files to index.
 * (TODO) Will be deployed as multiple instances over multiple hosts to speedup OCR during indexing process of images and PDFs.
+
+# TODO
+
+* (Priority 1) Improve the frontend with features that OSS provides.  Replicate's Ray's system UI capabilities.  Here's a list of features:
+  * The UI shall display a list of documents that failed indexing by fs-crawler.
+    * It shall show the error code/description of each failure and the date of the failure.
+  * The UI shall display the number of import jobs currently handled by the system.
+    * Each import job shall have a progress bar beside it so users can get an idea of how long it'll take to complete, and how much of it is currently indexed.
+    * Imports have a priority assigned, which can be changed by admins.  This would allow giving priority to an import over another.
+  * This UI shall allow the user to download the documents in the search results.
+    * The user will also be able to navigate to other related documents.  Example: A PDF file appears in the search results.  This PDF is an EMail attachement.  Then the user shall be able to see this PDF is an attachement of an email, and see a link to that email.
+  * The UI shall allow the user to search for text.
+    * Each result is concise, and have a list of tags of interest: Persons, phone numbers, etc
+* (Priority 2) Decouple FSCrawler from archive ingester, like depicted in above diagram.  Right now, fs-scrawler is running in FS scrapping mode in the ingester container.  This is not ideal, because it can't be scaled this way, and it is not easy to capture errors.
+  * Run multiple fs crawler instances as separate pods.  Each pod will "advertise" themselves to the archive ingester, periodically.
+  * "archive ingester" will keep track of fs-crawler instances that it got advertisement from.  It will remove them after not receive advertisement for a period of time, and also, when a request to it failed.
+  * "Archive ingester" will load balance indexing requests to those instances.  It will never have more than one concurrent request per fscrawler instance.
+* (Priority 3) "Archive Ingester" will keep track of files that got indexed succesfully, and have an endpoint to retrieve the current ingested zip that is currently undergoing indexing, and their progress.
+* (Priority 4) "Archive Ingester" will have priority assigned to ZIP imports.
+
+Future work
+
+* RBAC (Role Based access control)
+* User management: Ability to add/remove users and assign them to role(s).
+  * Right now, can only do this in Auth0 admin interface.
+
