@@ -20,7 +20,7 @@ export class SingleSearchResult extends React.Component {
                         </div>
                         <div>
                             <h3 className="text-base font-medium text-white">
-                                {this.props.name}
+                                {this.props.subject}
                             </h3>
                             <p className="text-sm text-body-color text-dark-6">{this.props.date}</p>
                         </div>
@@ -28,10 +28,18 @@ export class SingleSearchResult extends React.Component {
                     <div className="mb-4">
                         <div className="flex items-center">
                             <p className="mr-[10px] text-base font-medium text-white">
-                                <span> {this.props.rating} </span>
+                                <span>Type: {this.props.filetype !=null ? this.props.filetype : this.props.fileextension} </span>
                             </p>
                             <div className="flex items-center gap-1">
-                                <span>Place to put some stuff</span>
+                                <span>File extension: {this.props.fileextension}</span>
+                            </div>
+                        </div>
+                        <div className="flex items-center">
+                            <p className="mr-[10px] text-base font-medium text-white">
+                                <span> Author: {this.props.author}</span>
+                            </p>
+                            <div className="flex items-center gap-1">
+                                <span> Language: {this.props.language}</span>
                             </div>
                         </div>
                     </div>

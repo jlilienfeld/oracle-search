@@ -6,7 +6,6 @@ export class SearchResults extends React.Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <section className="bg-gray-2 dark:bg-dark pb-1 pt-1 lg:pb-2 lg:pt-2">
@@ -15,10 +14,13 @@ export class SearchResults extends React.Component {
                     this.props.results.map(result => (
                         <SingleSearchResult
                             img="/folder-icon.jpg"
-                            name="PressTV Leak"
-                            date="Date Here"
-                            rating="FileType"
-                            title={result.file.url}
+                            subject={result.meta.title}
+                            author={result.meta.author}
+                            language={result.meta.language}
+                            date={result.meta.created}
+                            fileextension={result.file.extension}
+                            filetype={result.file.contentType}
+                            title={result.file.url.substring(13)}
                             details={result.content}
                         />))
                 }
