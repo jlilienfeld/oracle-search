@@ -11,5 +11,4 @@ public class OracleSearchApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OracleSearchApplication.class, args);
 	}
-
 }

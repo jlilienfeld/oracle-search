@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DocumentRepository extends ElasticsearchRepository<IndexedFile, String> {
     Page<IndexedFile> findByContent(String content, Pageable pageable);
-
 }
